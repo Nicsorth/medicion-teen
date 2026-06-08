@@ -1,0 +1,1774 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Evaluación Adolescentes — Dr. Nicolás Labbé</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Host+Grotesk:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ═════════════════════════════════════════════════════════════════
+         PALETA — basada en la del sistema adulto + acentos teen
+         ═════════════════════════════════════════════════════════════════ */
+      :root {
+        /* Adulto (mantenidos exactos) */
+        --ink: #1a1412;
+        --ink-soft: #6b5e59;
+        --ink-muted: #9c8f8a;
+        --paper: #ffffff;
+        --paper-warm: #fff8f5;
+        --accent: #9a3412;          /* terracota, identidad principal */
+        --accent-light: #fdf0eb;
+        --accent-mid: #7c2d12;
+        --success: #2a7a5a;
+        --success-light: #e8f5f0;
+        --border: #e8e0db;
+        --border-focus: #9a3412;
+        --shadow: 0 2px 12px rgba(26, 20, 18, 0.07);
+
+        /* Modificaciones teen */
+        --teen: #0f766e;            /* verde esmeralda: progreso, aliento */
+        --teen-light: #ccfbf1;
+        --teen-bg: #f0fdfa;
+        --radius: 14px;             /* era 10px */
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        font-family: "Host Grotesk", ui-sans-serif, -apple-system,
+                     BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: linear-gradient(180deg, #ffffff 0%, #fff9f7 100%);
+        color: var(--ink);
+        min-height: 100vh;
+        font-size: 17px;            /* era 15px — teen */
+        line-height: 1.6;
+      }
+
+      /* ═══ Header ═══ */
+      .header {
+        background: var(--ink);
+        padding: 28px 0 24px;
+        text-align: center;
+      }
+      .header-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 22px;
+        color: #fff;
+        letter-spacing: -0.3px;
+      }
+      .header-sub {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.55);
+        margin-top: 4px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: 300;
+      }
+
+      /* ═══ Progress bar (acento teen) ═══ */
+      .progress-bar-wrap {
+        background: var(--paper-warm);
+        border-bottom: 1px solid var(--border);
+        padding: 14px 24px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .progress-inner {
+        max-width: 680px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .progress-track {
+        flex: 1;
+        height: 6px;
+        background: var(--border);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background: var(--teen);     /* verde esmeralda */
+        border-radius: 3px;
+        transition: width 0.4s ease;
+        width: 0%;
+      }
+      .progress-label {
+        font-size: 13px;
+        color: var(--ink-soft);
+        min-width: 90px;
+        text-align: right;
+        font-weight: 500;
+      }
+
+      /* ═══ Layout ═══ */
+      .container {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+      }
+
+      /* ═══ Moment badge (TP indicator) ═══ */
+      .moment-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--accent-light);
+        border: 1px solid rgba(154, 52, 18, 0.2);
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 500;
+        padding: 6px 14px;
+        border-radius: 20px;
+        margin-bottom: 24px;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+      }
+      .moment-badge::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        background: var(--accent);
+        border-radius: 50%;
+      }
+
+      /* ═══ Intro / Section card ═══ */
+      .section-card {
+        background: var(--paper);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 28px 32px;
+        margin-bottom: 28px;
+        box-shadow: var(--shadow);
+      }
+      .section-card h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 28px;
+        font-weight: 500;
+        color: var(--ink);
+        margin-bottom: 6px;
+        letter-spacing: -0.5px;
+        line-height: 1.2;
+      }
+      .section-card h2 {
+        font-family: "Playfair Display", serif;
+        font-size: 22px;
+        font-weight: 500;
+        color: var(--ink);
+        margin-bottom: 8px;
+        letter-spacing: -0.3px;
+      }
+      .section-card p {
+        color: var(--ink-soft);
+        margin-bottom: 14px;
+      }
+      .section-card .lead {
+        color: var(--ink-soft);
+        font-size: 16.5px;
+      }
+      /* Mensaje de bienvenida (encima del título) */
+      .welcome {
+        font-family: "Playfair Display", serif;
+        font-size: 16px;
+        font-style: italic;
+        color: var(--accent);
+        margin-bottom: 14px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--accent-light);
+        line-height: 1.55;
+      }
+
+      /* ═══ Instrument pills (intro) ═══ */
+      .instruments-list {
+        margin-top: 16px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .pill {
+        background: var(--paper-warm);
+        border: 1px solid var(--border);
+        color: var(--ink-soft);
+        font-size: 12px;
+        padding: 4px 10px;
+        border-radius: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        font-weight: 500;
+      }
+
+      /* ═══ Form fields ═══ */
+      .field {
+        margin-bottom: 22px;
+      }
+      .field label.field-label {
+        display: block;
+        font-weight: 500;
+        color: var(--ink);
+        margin-bottom: 8px;
+        font-size: 16.5px;
+      }
+      .field .hint {
+        display: block;
+        font-size: 13px;
+        color: var(--ink-muted);
+        margin-bottom: 10px;
+      }
+      .field input[type="number"],
+      .field input[type="text"],
+      .field select {
+        width: 100%;
+        max-width: 240px;
+        padding: 10px 14px;
+        font-size: 16px;
+        font-family: inherit;
+        color: var(--ink);
+        background: var(--paper);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        transition: border-color 0.2s;
+      }
+      .field input:focus,
+      .field select:focus {
+        outline: none;
+        border-color: var(--border-focus);
+        box-shadow: 0 0 0 3px rgba(154, 52, 18, 0.1);
+      }
+
+      /* ═══ Radio group horizontal (genero) ═══ */
+      .radio-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .radio-row label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--paper);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 10px 18px;
+        cursor: pointer;
+        transition: all 0.15s;
+        font-size: 16px;
+      }
+      .radio-row label:hover {
+        border-color: var(--accent);
+        background: var(--accent-light);
+      }
+      .radio-row input[type="radio"] {
+        accent-color: var(--accent);
+        width: 16px; height: 16px;
+      }
+      .radio-row input[type="radio"]:checked + span {
+        font-weight: 500;
+        color: var(--accent);
+      }
+
+      /* ═══ Consent box ═══ */
+      .consent-text {
+        background: var(--paper-warm);
+        border-left: 3px solid var(--accent);
+        padding: 16px 20px;
+        border-radius: 6px;
+        font-size: 15.5px;
+        color: var(--ink);
+        line-height: 1.65;
+        margin-bottom: 18px;
+      }
+      .consent-text strong {
+        color: var(--accent);
+        font-weight: 500;
+      }
+      .consent-check {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 16px;
+        background: var(--teen-bg);
+        border: 1px solid var(--teen-light);
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .consent-check input[type="checkbox"] {
+        margin-top: 3px;
+        accent-color: var(--teen);
+        width: 18px; height: 18px;
+        cursor: pointer;
+      }
+      .consent-check label {
+        cursor: pointer;
+        flex: 1;
+        font-size: 15.5px;
+        color: var(--ink);
+      }
+
+      /* ═══ Instrumento — texto introductorio + escala ═══ */
+      .instrument-intro {
+        background: var(--paper-warm);
+        border-left: 3px solid var(--accent);
+        padding: 14px 18px;
+        border-radius: 6px;
+        font-size: 15px;
+        color: var(--ink);
+        line-height: 1.6;
+        margin-bottom: 24px;
+      }
+      .instrument-intro strong {
+        color: var(--accent);
+        font-weight: 500;
+      }
+
+      /* ═══ Ítem individual (pregunta + 5 opciones) ═══ */
+      .item-block {
+        padding: 18px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .item-block:last-child {
+        border-bottom: none;
+      }
+      .item-text {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 12px;
+        font-size: 16.5px;
+        color: var(--ink);
+        line-height: 1.5;
+      }
+      .item-num {
+        color: var(--ink-muted);
+        font-weight: 500;
+        flex-shrink: 0;
+        min-width: 22px;
+      }
+      .item-options {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .radio-pill {
+        flex: 1;
+        min-width: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px 8px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 13.5px;
+        text-align: center;
+        transition: all 0.15s;
+        background: var(--paper);
+        color: var(--ink-soft);
+      }
+      .radio-pill:hover {
+        border-color: var(--accent);
+        background: var(--accent-light);
+        color: var(--accent);
+      }
+      .radio-pill input[type="radio"] {
+        display: none;
+      }
+      .radio-pill.is-checked {
+        border-color: var(--accent);
+        background: var(--accent-light);
+        color: var(--accent);
+        font-weight: 500;
+      }
+      @media (max-width: 540px) {
+        .radio-pill {
+          min-width: calc(50% - 4px);
+          font-size: 13px;
+          padding: 11px 6px;
+        }
+      }
+
+      /* ═══ WAI scale (1-7 numérico compacto) ═══ */
+      .wai-scale {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 4px;
+      }
+      .wai-pill {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 0;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--ink-soft);
+        background: var(--paper);
+        transition: all 0.15s;
+        min-height: 42px;
+      }
+      .wai-pill input {
+        display: none;
+      }
+      .wai-pill:hover {
+        border-color: var(--accent);
+        background: var(--accent-light);
+        color: var(--accent);
+      }
+      .wai-pill.is-checked {
+        border-color: var(--accent);
+        background: var(--accent-light);
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .wai-anchors {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--ink-muted);
+        padding: 0 4px;
+        margin-bottom: 2px;
+      }
+      @media (max-width: 540px) {
+        .wai-scale { gap: 4px; }
+        .wai-pill { font-size: 14px; padding: 10px 0; min-height: 40px; }
+      }
+
+      /* ═══ Mini-encouragement (a mitad de un instrumento largo) ═══ */
+      .mini-encouragement {
+        background: transparent;
+        color: var(--teen);
+        text-align: center;
+        font-size: 14px;
+        font-style: italic;
+        padding: 18px 12px 6px;
+        margin: 8px 0 4px;
+        border-top: 1px dashed var(--teen-light);
+      }
+
+      /* ═══ Encouragement message (entre secciones) ═══ */
+      .encouragement {
+        background: var(--teen-bg);
+        border: 1px solid var(--teen-light);
+        color: var(--teen);
+        border-radius: 12px;
+        padding: 14px 20px;
+        margin-bottom: 28px;
+        font-size: 15px;
+        font-weight: 500;
+        text-align: center;
+      }
+
+      /* ═══ Submit button ═══ */
+      .submit-area {
+        margin-top: 32px;
+        padding: 24px;
+        text-align: center;
+      }
+      .btn-submit {
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 14px 36px;
+        font-size: 17px;
+        font-family: inherit;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        min-width: 220px;
+      }
+      .btn-submit:hover:not(:disabled) {
+        background: var(--accent-mid);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(154, 52, 18, 0.25);
+      }
+      .btn-submit:disabled {
+        background: var(--ink-muted);
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+      .submit-hint {
+        margin-top: 12px;
+        font-size: 13px;
+        color: var(--ink-muted);
+      }
+
+      /* ═══ Closing screen ═══ */
+      .closing {
+        background: var(--paper);
+        border: 1px solid var(--teen-light);
+        border-radius: var(--radius);
+        padding: 48px 32px;
+        text-align: center;
+        box-shadow: var(--shadow);
+      }
+      .closing-check {
+        width: 64px;
+        height: 64px;
+        background: var(--teen);
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 32px;
+      }
+      .closing h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 28px;
+        font-weight: 500;
+        color: var(--ink);
+        margin-bottom: 12px;
+      }
+      .closing p {
+        color: var(--ink-soft);
+        max-width: 460px;
+        margin: 0 auto 18px;
+        line-height: 1.65;
+      }
+
+      /* ═══ Error message ═══ */
+      .error-msg {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #991b1b;
+        padding: 12px 16px;
+        border-radius: 10px;
+        margin-top: 16px;
+        font-size: 15px;
+        display: none;
+      }
+
+      /* ═══ Validación: caja de error global + marcado de items incompletos ═══ */
+      .validation-error {
+        background: #fff5f5;
+        border: 1px solid #ffbbbb;
+        color: #991b1b;
+        padding: 14px 18px;
+        border-radius: 10px;
+        font-size: 15px;
+        margin-bottom: 16px;
+        display: none;
+        line-height: 1.55;
+      }
+      .validation-error.active {
+        display: block;
+      }
+      /* Resalta cualquier elemento marcado como incompleto */
+      .is-incomplete {
+        background: #fff5f5;
+        outline: 1.5px solid #ffbbbb;
+        outline-offset: 4px;
+        border-radius: 8px;
+      }
+
+      /* ═══ Loading state ═══ */
+      .loading {
+        display: none;
+        text-align: center;
+        padding: 40px;
+        color: var(--ink-soft);
+      }
+      .spinner {
+        display: inline-block;
+        width: 32px; height: 32px;
+        border: 3px solid var(--border);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin-bottom: 12px;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      /* ═══ Responsive ═══ */
+      @media (max-width: 640px) {
+        .section-card { padding: 24px 22px; }
+        .container { padding: 24px 16px 60px; }
+        .section-card h1 { font-size: 24px; }
+        body { font-size: 16.5px; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ═════════════════════════════════════════════════════════════════
+         HEADER + BARRA DE PROGRESO
+         ═════════════════════════════════════════════════════════════════ -->
+    <header class="header">
+      <div class="header-logo">Dr. Nicolás Labbé</div>
+      <div class="header-sub">Evaluación Clínica · Adolescentes</div>
+    </header>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-inner">
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-label" id="progressLabel">0%</div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- ───────────────────────────────────────────────────────────────
+           INTRO BLOCK (badge TP + título + instrumentos)
+           ─────────────────────────────────────────────────────────────── -->
+      <div class="moment-badge" id="momentBadge">Ingreso · TP-0</div>
+
+      <div class="section-card" id="introBlock">
+        <p class="welcome" id="welcomeText">
+          <!-- Texto cargado por JS según Informante y TP -->
+        </p>
+        <h1 id="introTitle">Evaluación de Ingreso</h1>
+        <p class="lead" id="introLead">
+          Antes de empezar, te explicamos brevemente cómo es esto.
+        </p>
+        <div class="instruments-list" id="instrumentsList"></div>
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────
+           SECCIÓN 1 — CONSENTIMIENTO
+           ─────────────────────────────────────────────────────────────── -->
+      <div class="section-card" id="sec-consent">
+        <h2>Antes de empezar</h2>
+        <div class="consent-text" id="consentText">
+          <!-- Texto cargado por JS según Informante -->
+        </div>
+        <div class="consent-check">
+          <input type="checkbox" id="consentChk" />
+          <label for="consentChk" id="consentLabel">
+            Estoy de acuerdo y quiero continuar.
+          </label>
+        </div>
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────
+           SECCIÓN 2 — DEMOGRÁFICOS (siempre se pregunta)
+           ─────────────────────────────────────────────────────────────── -->
+      <div class="section-card" id="sec-demo">
+        <h2 id="demoTitle">Algunos datos</h2>
+        <p id="demoIntro">
+          Antes de las preguntas, necesitamos dos datos básicos.
+        </p>
+
+        <div class="field">
+          <label class="field-label" id="lblGenero">¿Cuál es tu género?</label>
+          <div class="radio-row">
+            <label><input type="radio" name="genero" value="F" /><span>Femenino</span></label>
+            <label><input type="radio" name="genero" value="M" /><span>Masculino</span></label>
+            <label><input type="radio" name="genero" value="Otro" /><span>Otro / Prefiero no decir</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" id="lblEdad">¿Qué edad tienes?</label>
+          <span class="hint">En años cumplidos</span>
+          <input type="number" id="inputEdad" min="11" max="17" placeholder="Ej. 15" />
+        </div>
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────
+           SECCIÓN 3 — YP-CORE (10 ítems, escala 0-4)
+           Texto exacto del cuestionario validado Spanish LA
+           (Valdiviezo-Oña et al., 2024 · © CORE System Trust).
+           NO MODIFICAR EL TEXTO DE LOS ÍTEMS.
+           ─────────────────────────────────────────────────────────────── -->
+      <div class="section-card" id="sec-ypcore" style="display: none">
+        <h2>Cómo te has sentido</h2>
+        <div class="instrument-intro">
+          Las siguientes preguntas son sobre cómo te has sentido <strong>durante
+          los últimos siete días</strong>. Por favor lee cada pregunta con
+          atención. Piensa cuántas veces te has sentido así en la última
+          semana. A continuación, selecciona la opción que creas que se ajusta
+          mejor.
+        </div>
+
+        <div class="item-block">
+          <div class="item-text">
+            <span class="item-num">1.</span>
+            <span>Me he sentido ansioso/a o nervioso/a</span>
+          </div>
+          <div class="item-options" data-item="ypcore_1">
+            <label class="radio-pill"><input type="radio" name="ypcore_1" value="0"><span>Nunca</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_1" value="1"><span>Muy pocas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_1" value="2"><span>A veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_1" value="3"><span>Muchas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_1" value="4"><span>Siempre o casi siempre</span></label>
+          </div>
+        </div>
+
+        <div class="item-block">
+          <div class="item-text">
+            <span class="item-num">2.</span>
+            <span>No he tenido ganas de hablar con nadie</span>
+          </div>
+          <div class="item-options" data-item="ypcore_2">
+            <label class="radio-pill"><input type="radio" name="ypcore_2" value="0"><span>Nunca</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_2" value="1"><span>Muy pocas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_2" value="2"><span>A veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_2" value="3"><span>Muchas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_2" value="4"><span>Siempre o casi siempre</span></label>
+          </div>
+        </div>
+
+        <div class="item-block">
+          <div class="item-text">
+            <span class="item-num">3.</span>
+            <span>Me he sentido capaz de enfrentar mis problemas</span>
+          </div>
+          <div class="item-options" data-item="ypcore_3">
+            <label class="radio-pill"><input type="radio" name="ypcore_3" value="0"><span>Nunca</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_3" value="1"><span>Muy pocas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_3" value="2"><span>A veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_3" value="3"><span>Muchas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_3" value="4"><span>Siempre o casi siempre</span></label>
+          </div>
+        </div>
+
+        <div class="item-block">
+          <div class="item-text">
+            <span class="item-num">4.</span>
+            <span>He pensado en hacerme daño a mí mismo/a</span>
+          </div>
+          <div class="item-options" data-item="ypcore_4">
+            <label class="radio-pill"><input type="radio" name="ypcore_4" value="0"><span>Nunca</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_4" value="1"><span>Muy pocas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_4" value="2"><span>A veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_4" value="3"><span>Muchas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_4" value="4"><span>Siempre o casi siempre</span></label>
+          </div>
+        </div>
+
+        <div class="item-block">
+          <div class="item-text">
+            <span class="item-num">5.</span>
+            <span>He sentido que tengo a alguien a quién podría pedir ayuda</span>
+          </div>
+          <div class="item-options" data-item="ypcore_5">
+            <label class="radio-pill"><input type="radio" name="ypcore_5" value="0"><span>Nunca</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_5" value="1"><span>Muy pocas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_5" value="2"><span>A veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_5" value="3"><span>Muchas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_5" value="4"><span>Siempre o casi siempre</span></label>
+          </div>
+        </div>
+
+        <div class="item-block">
+          <div class="item-text">
+            <span class="item-num">6.</span>
+            <span>Mis pensamientos y sentimientos me han molestado</span>
+          </div>
+          <div class="item-options" data-item="ypcore_6">
+            <label class="radio-pill"><input type="radio" name="ypcore_6" value="0"><span>Nunca</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_6" value="1"><span>Muy pocas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_6" value="2"><span>A veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_6" value="3"><span>Muchas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_6" value="4"><span>Siempre o casi siempre</span></label>
+          </div>
+        </div>
+
+        <div class="item-block">
+          <div class="item-text">
+            <span class="item-num">7.</span>
+            <span>Mis problemas han sido demasiado para mí</span>
+          </div>
+          <div class="item-options" data-item="ypcore_7">
+            <label class="radio-pill"><input type="radio" name="ypcore_7" value="0"><span>Nunca</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_7" value="1"><span>Muy pocas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_7" value="2"><span>A veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_7" value="3"><span>Muchas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_7" value="4"><span>Siempre o casi siempre</span></label>
+          </div>
+        </div>
+
+        <div class="item-block">
+          <div class="item-text">
+            <span class="item-num">8.</span>
+            <span>He tenido problemas para quedarme dormido/a o para dormir toda la noche</span>
+          </div>
+          <div class="item-options" data-item="ypcore_8">
+            <label class="radio-pill"><input type="radio" name="ypcore_8" value="0"><span>Nunca</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_8" value="1"><span>Muy pocas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_8" value="2"><span>A veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_8" value="3"><span>Muchas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_8" value="4"><span>Siempre o casi siempre</span></label>
+          </div>
+        </div>
+
+        <div class="item-block">
+          <div class="item-text">
+            <span class="item-num">9.</span>
+            <span>Me he sentido triste</span>
+          </div>
+          <div class="item-options" data-item="ypcore_9">
+            <label class="radio-pill"><input type="radio" name="ypcore_9" value="0"><span>Nunca</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_9" value="1"><span>Muy pocas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_9" value="2"><span>A veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_9" value="3"><span>Muchas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_9" value="4"><span>Siempre o casi siempre</span></label>
+          </div>
+        </div>
+
+        <div class="item-block">
+          <div class="item-text">
+            <span class="item-num">10.</span>
+            <span>He hecho todas las cosas que quería hacer</span>
+          </div>
+          <div class="item-options" data-item="ypcore_10">
+            <label class="radio-pill"><input type="radio" name="ypcore_10" value="0"><span>Nunca</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_10" value="1"><span>Muy pocas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_10" value="2"><span>A veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_10" value="3"><span>Muchas veces</span></label>
+            <label class="radio-pill"><input type="radio" name="ypcore_10" value="4"><span>Siempre o casi siempre</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────
+           SECCIÓN 4 — SDQ (25 ítems + suplemento de impacto)
+           Texto exacto de SDQ Spanish (Cuestionario de capacidades y
+           dificultades, © Robert Goodman, 2005). Versiones adolescente
+           y padres con misma numeración. Generado dinámicamente por JS.
+           ─────────────────────────────────────────────────────────────── -->
+      <div class="section-card" id="sec-sdq" style="display: none">
+        <h2 id="sdq-title">Sobre ti</h2>
+        <div class="instrument-intro" id="sdq-intro"></div>
+        <div id="sdq-items-wrap"></div>
+
+        <h2 style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border);">
+          Algo más
+        </h2>
+        <div id="sdq-impact-wrap"></div>
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────
+           SECCIÓN 5 — AIDA (58 ítems, escala 0-4)
+           Texto exacto del cuestionario oficial AIDA Spanish Mexico
+           (© 2019 academic-tests, Goth K & Schmeck K, co-author Kassin M).
+           Solo se muestra para Adolescente en TP=0 y TP=99.
+           Las inversiones se aplican en el Apps Script (no en el form).
+           NO MODIFICAR EL TEXTO DE LOS ÍTEMS.
+           ─────────────────────────────────────────────────────────────── -->
+      <div class="section-card" id="sec-aida" style="display: none">
+        <h2>Sobre cómo eres en general</h2>
+        <div class="instrument-intro" id="aida-intro"></div>
+        <div id="aida-items-wrap"></div>
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────
+           SECCIÓN 6 — WAI-P (12 ítems, escala 1-7)
+           Mismos ítems que el sistema adulto (Working Alliance Inventory –
+           Patient version, versión corta). Interpretación CONTINUA por
+           trayectoria, sin cortes ni niveles.
+           ─────────────────────────────────────────────────────────────── -->
+      <div class="section-card" id="sec-waip" style="display: none">
+        <h2>Cómo va nuestro trabajo juntos</h2>
+        <div class="instrument-intro" id="waip-intro"></div>
+        <div id="waip-items-wrap"></div>
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────
+           MENSAJE DE ALIENTO (visible cerca del final)
+           ─────────────────────────────────────────────────────────────── -->
+      <div class="encouragement" id="encouragement" style="display: none">
+        ¡Vas muy bien! Solo falta enviar tus respuestas.
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────
+           ENVÍO
+           ─────────────────────────────────────────────────────────────── -->
+      <div class="submit-area" id="submitArea">
+        <div class="validation-error" id="validationError">
+          Te faltan algunas respuestas. Están marcadas en rojo más arriba.
+        </div>
+        <button class="btn-submit" id="btnSubmit">Enviar respuestas</button>
+        <div class="submit-hint" id="submitHint">
+          Cuando termines, envía tus respuestas.
+        </div>
+        <div class="error-msg" id="errorMsg"></div>
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────
+           LOADING (durante el POST)
+           ─────────────────────────────────────────────────────────────── -->
+      <div class="loading" id="loadingArea">
+        <div class="spinner"></div>
+        <div>Guardando tus respuestas…</div>
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────
+           PANTALLA DE CIERRE (después del envío exitoso)
+           ─────────────────────────────────────────────────────────────── -->
+      <div class="closing" id="closingArea" style="display: none">
+        <div class="closing-check">✓</div>
+        <h1>Gracias por tomar este tiempo para ti.</h1>
+        <p>
+          Tus respuestas se guardaron correctamente. El Dr. Nicolás Labbé las
+          revisará antes de tu próxima sesión.
+        </p>
+        <p style="font-size: 14px; color: var(--ink-muted);">
+          Ya puedes cerrar esta página.
+        </p>
+      </div>
+
+    </div><!-- /container -->
+
+
+    <!-- ═════════════════════════════════════════════════════════════════
+         JAVASCRIPT
+         ═════════════════════════════════════════════════════════════════ -->
+    <script>
+      // ═══════════════════════════════════════════════════════════════
+      // CONFIGURACIÓN
+      // ═══════════════════════════════════════════════════════════════
+      const API_URL = 'https://script.google.com/macros/s/AKfycbxJAfqfiap3f4w5dM3l2QMRVRiBrZ3RQhAW9kmG4s3CAdaMDHIt5BZWOjcyuHFast8/exec';
+
+      // Definición de momentos: qué secciones aparecen para cada (Informante, TP).
+      // NOTA: AIDA NO está en TP=0 ni TP=99 default. Se envía en un link
+      // aparte con ?modo=aida para reducir fatiga (decisión 2026-06-07).
+      const MOMENTOS = {
+        Adolescente: {
+          0:  { label: 'Evaluación de Ingreso',         badge: 'Ingreso · TP-0',
+                secciones: ['sec-consent', 'sec-demo', 'sec-ypcore', 'sec-sdq'] },
+          3:  { label: 'Evaluación de Seguimiento 3m',  badge: 'Seguimiento 3m · TP-3',
+                secciones: ['sec-consent', 'sec-demo', 'sec-ypcore', 'sec-sdq', 'sec-waip'] },
+          6:  { label: 'Evaluación de Seguimiento 6m',  badge: 'Seguimiento 6m · TP-6',
+                secciones: ['sec-consent', 'sec-demo', 'sec-ypcore', 'sec-sdq', 'sec-waip'] },
+          9:  { label: 'Evaluación de Seguimiento 9m',  badge: 'Seguimiento 9m · TP-9',
+                secciones: ['sec-consent', 'sec-demo', 'sec-ypcore', 'sec-sdq', 'sec-waip'] },
+          12: { label: 'Evaluación de Seguimiento 12m', badge: 'Seguimiento 12m · TP-12',
+                secciones: ['sec-consent', 'sec-demo', 'sec-ypcore', 'sec-sdq', 'sec-waip'] },
+          99: { label: 'Evaluación de Cierre',          badge: 'Cierre · TP-99',
+                secciones: ['sec-consent', 'sec-demo', 'sec-ypcore', 'sec-sdq', 'sec-waip'] },
+        },
+        Padres: {
+          // Padres solo responden SDQ en todos los momentos
+          0:  { label: 'Evaluación de Ingreso (Padres)',         badge: 'Ingreso · TP-0',
+                secciones: ['sec-consent', 'sec-demo', 'sec-sdq'] },
+          3:  { label: 'Evaluación de Seguimiento 3m (Padres)',  badge: 'Seguimiento 3m · TP-3',
+                secciones: ['sec-consent', 'sec-demo', 'sec-sdq'] },
+          6:  { label: 'Evaluación de Seguimiento 6m (Padres)',  badge: 'Seguimiento 6m · TP-6',
+                secciones: ['sec-consent', 'sec-demo', 'sec-sdq'] },
+          9:  { label: 'Evaluación de Seguimiento 9m (Padres)',  badge: 'Seguimiento 9m · TP-9',
+                secciones: ['sec-consent', 'sec-demo', 'sec-sdq'] },
+          12: { label: 'Evaluación de Seguimiento 12m (Padres)', badge: 'Seguimiento 12m · TP-12',
+                secciones: ['sec-consent', 'sec-demo', 'sec-sdq'] },
+          99: { label: 'Evaluación de Cierre (Padres)',          badge: 'Cierre · TP-99',
+                secciones: ['sec-consent', 'sec-demo', 'sec-sdq'] },
+        },
+      };
+
+      // Nombres bonitos para los pills de instrumentos
+      const PILL_NAMES = {
+        'sec-ypcore': 'YP-CORE',
+        'sec-sdq':    'SDQ',
+        'sec-aida':   'AIDA',
+        'sec-waip':   'WAI-P · Alianza',
+      };
+
+      // Mensajes de bienvenida — varían por Informante × TP
+      const WELCOME_TEXTS = {
+        Adolescente: {
+          ingreso:     '¡Hola! Bienvenido/a a este cuestionario. Lo hacemos antes de vernos en sesión para empezar a entender cómo estás.',
+          seguimiento: '¡Hola de nuevo! Este cuestionario corto nos sirve para ver cómo has estado durante este tiempo. Tus respuestas hacen que nuestro trabajo en sesión sea más útil para ti.',
+          cierre:      '¡Hola! Esta es la evaluación de cierre. Tus respuestas nos ayudan a mirar el camino que hicimos juntos.',
+        },
+        Padres: {
+          ingreso:     'Bienvenido/a a este cuestionario. Lo hacemos antes de empezar las sesiones, para conocer mejor a su hijo/a.',
+          seguimiento: 'Bienvenido/a nuevamente. Este cuestionario corto nos ayuda a hacer seguimiento del proceso terapéutico de su hijo/a.',
+          cierre:      'Bienvenido/a. Esta es la evaluación de cierre del proceso terapéutico de su hijo/a.',
+        },
+      };
+
+      // ═══════════════════════════════════════════════════════════════
+      // SDQ — Cuestionario de capacidades y dificultades
+      // Texto exacto de la versión española oficial (© R. Goodman, 2005).
+      // Tabla: 25 ítems con texto distinto Adolescente vs Padres.
+      // NO MODIFICAR EL TEXTO DE LOS ÍTEMS (preserva validación).
+      // ═══════════════════════════════════════════════════════════════
+      const SDQ_TEXTS = {
+        Adolescente: {
+          title:  'Sobre ti',
+          intro:  'Por favor selecciona la opción que crees que mejor responde a cada pregunta. Es importante que respondas a todas las preguntas lo mejor que puedas, aunque no estés completamente seguro/a de la respuesta. Responde pensando en cómo te has sentido o comportado en los <strong>últimos seis meses</strong>.',
+          items: [
+            /*  1 */ 'Intento ser agradable con los demás. Tengo en cuenta los sentimientos de las otras personas',
+            /*  2 */ 'Soy inquieto/a, hiperactivo/a, no puedo permanecer quieto/a por mucho tiempo',
+            /*  3 */ 'Suelo tener muchos dolores de cabeza, estómago o náuseas',
+            /*  4 */ 'Normalmente comparto con otros mis juegos, galletitas, lápices, etc.',
+            /*  5 */ 'Cuando me enojo, me enojo mucho y pierdo el control',
+            /*  6 */ 'Soy más bien solitario/a y tiendo a jugar solo/a',
+            /*  7 */ 'Por lo general soy obediente',
+            /*  8 */ 'A menudo estoy preocupado/a',
+            /*  9 */ 'Ayudo si alguien está enfermo, disgustado o herido',
+            /* 10 */ 'Estoy todo el tiempo moviéndome, me muevo demasiado',
+            /* 11 */ 'Tengo un/a buen/a amigo/a por lo menos',
+            /* 12 */ 'Peleo mucho. Puedo hacer que los demás hagan lo que yo quiero',
+            /* 13 */ 'Me siento a menudo triste, desanimado o con ganas de llorar',
+            /* 14 */ 'Por lo general caigo bien a la otra gente de mi edad',
+            /* 15 */ 'Me distraigo con facilidad, me cuesta concentrarme',
+            /* 16 */ 'Me pongo nervioso/a con las situaciones nuevas, fácilmente pierdo la confianza en mí mismo/a',
+            /* 17 */ 'Trato bien a los niños/as más pequeños/as',
+            /* 18 */ 'A menudo me acusan de mentir o de hacer trampa',
+            /* 19 */ 'Otros chicos de mi edad se meten conmigo o se burlan de mí',
+            /* 20 */ 'A menudo ofrezco mi ayuda (a padres, profesores, niños)',
+            /* 21 */ 'Pienso las cosas antes de hacerlas',
+            /* 22 */ 'Tomo cosas que no son mías de casa, la escuela o de otros sitios',
+            /* 23 */ 'Me llevo mejor con adultos que con otros de mi edad',
+            /* 24 */ 'Tengo muchos miedos, me asusto fácilmente',
+            /* 25 */ 'Termino lo que empiezo, tengo buena concentración',
+          ],
+          scale: ['No es cierto', 'Un tanto cierto', 'Absolutamente cierto'],
+          impact_title: 'Algunas preguntas más sobre cómo te ha ido',
+          impact_filtro: 'En general, ¿crees que tienes dificultades en alguna de las siguientes áreas: emociones, concentración, conducta o capacidad para relacionarte con otras personas?',
+          impact_filtro_opts: ['No', 'Sí, pocas dificultades', 'Sí, claras dificultades', 'Sí, graves dificultades'],
+          impact_duracion: '¿Desde cuándo tienes estas dificultades?',
+          impact_duracion_opts: ['Menos de un mes', '1–5 meses', '6–12 meses', 'Más de un año'],
+          impact_items: [
+            { key: 'a_distress', text: '¿Estas dificultades te preocupan o te hacen sufrir?' },
+            { key: 'b_familia',  text: '¿Repercuten en cómo te llevas con tu familia?' },
+            { key: 'c_amigos',   text: '¿Repercuten en hacer y mantener amigos?' },
+            { key: 'd_clases',   text: '¿Repercuten en el aprendizaje o el trabajo en clase?' },
+            { key: 'e_ocio',     text: '¿Repercuten en tus actividades de ocio o de tiempo libre?' },
+          ],
+          impact_scale: ['No', 'Un poco', 'Bastante', 'Mucho'],
+        },
+        Padres: {
+          title:  'Sobre su hijo/a',
+          intro:  'Por favor seleccione la opción que crea que corresponde a cada pregunta. Nos sería de gran ayuda si responde a todas las preguntas lo mejor que pueda, aunque no esté completamente seguro/a de la respuesta. Responda basándose en el comportamiento de su hijo/a durante los <strong>últimos seis meses</strong>.',
+          items: [
+            /*  1 */ 'Tiene en cuenta los sentimientos de otras personas',
+            /*  2 */ 'Es inquieto/a, hiperactivo/a, no puede permanecer quieto/a por mucho tiempo',
+            /*  3 */ 'Se queja con frecuencia de dolor de cabeza, de estómago o de náuseas',
+            /*  4 */ 'Comparte frecuentemente con otros niños/as chucherías, juguetes, lápices, etc.',
+            /*  5 */ 'Frecuentemente tiene rabietas o mal genio',
+            /*  6 */ 'Es más bien solitario/a y tiende a jugar solo/a',
+            /*  7 */ 'Por lo general es obediente, suele hacer lo que le piden los adultos',
+            /*  8 */ 'Tiene muchas preocupaciones, a menudo parece inquieto/a o preocupado/a',
+            /*  9 */ 'Ofrece ayuda cuando alguien resulta herido, disgustado, o enfermo',
+            /* 10 */ 'Está continuamente moviéndose y es revoltoso',
+            /* 11 */ 'Tiene por lo menos un/a buen/a amigo/a',
+            /* 12 */ 'Pelea con frecuencia con otros niños/as o se mete con ellos/ellas',
+            /* 13 */ 'Se siente a menudo infeliz, desanimado o lloroso',
+            /* 14 */ 'Por lo general cae bien a los otros niños/as',
+            /* 15 */ 'Se distrae con facilidad, su concentración tiende a dispersarse',
+            /* 16 */ 'Es nervioso/a o dependiente ante nuevas situaciones, fácilmente pierde la confianza en sí mismo/a',
+            /* 17 */ 'Trata bien a los niños/as más pequeños/as',
+            /* 18 */ 'A menudo miente o engaña',
+            /* 19 */ 'Los otros niños/as se meten con él/ella o se burlan de él/ella',
+            /* 20 */ 'Se ofrece a menudo para ayudar a otras personas (padres, profesores, niños)',
+            /* 21 */ 'Piensa las cosas antes de hacerlas',
+            /* 22 */ 'Roba cosas en casa, en la escuela o en otros sitios',
+            /* 23 */ 'Se lleva mejor con adultos que con otros niños/as',
+            /* 24 */ 'Tiene muchos miedos, se asusta fácilmente',
+            /* 25 */ 'Termina lo que empieza, tiene buena concentración',
+          ],
+          scale: ['No es cierto', 'Un tanto cierto', 'Absolutamente cierto'],
+          impact_title: 'Algunas preguntas más sobre cómo le ha ido a su hijo/a',
+          impact_filtro: '¿Cree usted que su hijo/a tiene dificultades en alguna de las siguientes áreas: emociones, concentración, conducta o capacidad para relacionarse con otras personas?',
+          impact_filtro_opts: ['No', 'Sí, pocas dificultades', 'Sí, claras dificultades', 'Sí, graves dificultades'],
+          impact_duracion: '¿Desde cuándo tiene estas dificultades?',
+          impact_duracion_opts: ['Menos de un mes', '1–5 meses', '6–12 meses', 'Más de un año'],
+          impact_items: [
+            { key: 'a_distress', text: '¿Cree usted que estas dificultades preocupan o causan malestar a su hijo/a?' },
+            { key: 'b_familia',  text: '¿Interfieren estas dificultades en la vida en la casa?' },
+            { key: 'c_amigos',   text: '¿Interfieren estas dificultades en las amistades?' },
+            { key: 'd_clases',   text: '¿Interfieren estas dificultades en el aprendizaje en la escuela?' },
+            { key: 'e_ocio',     text: '¿Interfieren estas dificultades en las actividades de ocio o de tiempo libre?' },
+          ],
+          impact_scale: ['No', 'Sólo un poco', 'Bastante', 'Mucho'],
+        },
+      };
+
+      // Mapeo de valores de filtro y duración (lo que va al Sheet)
+      const SDQ_FILTRO_VALUES   = ['No', 'Si_pocas', 'Si_claras', 'Si_severas'];
+      const SDQ_DURACION_VALUES = ['menos_1m', '1_5m', '6_12m', 'mas_1a'];
+      // Impact items: indice de opción que el usuario clickea (0-3).
+      // El Apps Script convierte con mapeo [0,0,1,2] al puntaje SDQ estándar.
+      const SDQ_IMPACT_VALUES   = [0, 1, 2, 3];
+
+      // ═══════════════════════════════════════════════════════════════
+      // WAI-P — Working Alliance Inventory (Patient version, short form)
+      // Mismos 12 ítems que el sistema adulto, escala 1-7.
+      // Interpretación continua por trayectoria, sin cortes.
+      // ═══════════════════════════════════════════════════════════════
+      const WAIP = {
+        intro:  'Las siguientes preguntas se refieren a <strong>tu relación con tu terapeuta</strong>. Indica con qué frecuencia se aplica cada afirmación. <br/><br/><strong>1 = Nunca · 2 = Raramente · 3 = A veces · 4 = A menudo · 5 = Con frecuencia · 6 = Muy frecuentemente · 7 = Siempre</strong>',
+        items: [
+          /*  1 */ 'Mi terapeuta y yo estamos de acuerdo sobre los pasos a seguir para mejorar mi situación.',
+          /*  2 */ 'Lo que hago en terapia me da nuevas perspectivas sobre mi problema.',
+          /*  3 */ 'Creo que mi terapeuta me aprecia.',
+          /*  4 */ 'Mi terapeuta y yo tenemos una idea compartida de las metas de nuestra terapia.',
+          /*  5 */ 'Mi terapeuta y yo confiamos el uno en el otro.',
+          /*  6 */ 'Mi terapeuta y yo tenemos puntos de vista similares sobre cuál es mi problema principal.',
+          /*  7 */ 'Me siento a gusto con mi terapeuta.',
+          /*  8 */ 'Mi terapeuta y yo trabajamos en conjunto hacia metas mutuamente acordadas.',
+          /*  9 */ 'Siento que lo que hago en terapia es relevante para mis metas.',
+          /* 10 */ 'Tengo confianza en la habilidad de mi terapeuta para ayudarme.',
+          /* 11 */ 'Mi terapeuta y yo hemos establecido una buena comprensión de los tipos de cambios que serían buenos para mí.',
+          /* 12 */ 'Creo que la manera en que estamos trabajando sobre mi problema es correcta.',
+        ],
+      };
+
+      // ═══════════════════════════════════════════════════════════════
+      // AIDA — Assessment of Identity Development in Adolescence
+      // Texto exacto de la versión oficial AIDA Spanish Mexico
+      // (© 2019 academic-tests, Goth K & Schmeck K, co-author Kassin M).
+      // Solo Adolescente, TP=0 y TP=99.
+      // NO MODIFICAR EL TEXTO DE LOS ÍTEMS.
+      // Inversiones para puntaje total las aplica el Apps Script.
+      // ═══════════════════════════════════════════════════════════════
+      const AIDA = {
+        intro:  'Las siguientes frases podrían describir tus actitudes, opiniones, intereses y otros sentimientos personales. Para cada una, elige la respuesta que mejor se ajuste a cómo eres <strong>en general</strong> (no solo a cómo te sientes ahora mismo). No hay respuestas correctas o incorrectas — sólo describen tus opiniones y sentimientos.',
+        scale: ['No', 'Más bien no', 'Más o menos', 'Más bien sí', 'Sí'],
+        items: [
+          /*  1 */ 'Tengo aficiones o intereses que forman parte de mí.',
+          /*  2 */ 'Estoy orgulloso de mis raíces, siento que es el grupo al que pertenezco.',
+          /*  3 */ 'A menudo no sé lo que estoy sintiendo.',
+          /*  4 */ 'Siento que tengo caras diferentes que juntas no encajan bien.',
+          /*  5 */ 'Podría nombrar algunas cosas que hago muy bien.',
+          /*  6 */ 'A menudo me cuesta recordar por qué hice las cosas.',
+          /*  7 */ 'Es difícil para mí estar junto a dos o tres amigos a la vez, esto siempre me causa problemas de alguna manera.',
+          /*  8 */ 'He cambiado tanto que siento que ya no soy el mismo que era.',
+          /*  9 */ 'Con frecuencia discuto con amigos, cambiando rápidamente entre ser su amigo y no ser su amigo.',
+          /* 10 */ 'A menudo me preocupo cuando veo en el espejo cuánto he cambiado.',
+          /* 11 */ 'No estoy seguro de si de verdad les caigo bien a mis amigos.',
+          /* 12 */ 'A veces actúo de manera tan diferente que si alguien me viera pensaría que no soy la misma persona.',
+          /* 13 */ 'A menudo me siento perdido, como si no tuviera definido un centro interno.',
+          /* 14 */ 'A veces cuando tengo un amigo/a, siento que hago a un lado mis necesidades y las dejo para después, es como si yo desapareciera.',
+          /* 15 */ 'A veces me siento como actuando, porque mi apariencia no concuerda con como soy.',
+          /* 16 */ 'Me estreso rápidamente cuando estoy con un grupo grande de amigos.',
+          /* 17 */ 'Puedo confiar en mis principios, habitualmente me llevan en la dirección correcta.',
+          /* 18 */ 'Siento que no pertenezco realmente a ninguna parte.',
+          /* 19 */ 'Temo que muchos de mis amigos me dejen solo, cuando los necesite.',
+          /* 20 */ 'Cuando hablo con alguien es importante para mí, ver que le gusta lo que estoy diciendo.',
+          /* 21 */ 'A veces siento como si mis intereses no fueran realmente míos, como si los hubiera tomado de otras personas.',
+          /* 22 */ 'Cuando mis amigos no están de acuerdo con mis ideas u opiniones, me siento pisoteado.',
+          /* 23 */ 'Siento que pertenezco a mi familia.',
+          /* 24 */ 'Soy amigo de personas que no me caen bien, porque no soy capaz de rechazarlos.',
+          /* 25 */ 'Me han dicho muchas veces, que es difícil saber quién soy realmente.',
+          /* 26 */ 'Tengo una idea clara de cómo podría ser mi futuro (p. ej., casarme y tener hijos, o viajar y ver el mundo …).',
+          /* 27 */ 'A menudo no estoy seguro/a de estar haciendo lo mejor para mí.',
+          /* 28 */ 'Mis padres piensan que no sirvo.',
+          /* 29 */ 'A veces tengo sentimientos intensos sin saber de dónde vienen.',
+          /* 30 */ 'A menudo veo mi propio comportamiento muy diferente de lo que dicen mis amigos.',
+          /* 31 */ 'Soy tan distinto en diferentes situaciones (con amigos, con superiores, con desconocidos, familia…) que a los demás les cuesta mucho reconocerme.',
+          /* 32 */ 'Me siento vacío.',
+          /* 33 */ 'Conforme pasa el tiempo puedo tener una idea de cómo seré.',
+          /* 34 */ 'Me es difícil no sentirme superior o inferior a los demás.',
+          /* 35 */ 'Estoy confundido acerca de qué tipo de persona realmente soy.',
+          /* 36 */ 'Si alguien me ha ofendido, no lo quiero volver a ver nunca más!',
+          /* 37 */ 'A menudo me cuesta recordar qué, cuándo y por qué hice las cosas.',
+          /* 38 */ 'Si soy criticado o me ven fracasando, me siento muy inútil y devastado.',
+          /* 39 */ 'Me siento cómodo en mi cuerpo.',
+          /* 40 */ 'Habitualmente mis relaciones son inestables (a veces estamos juntos a veces no).',
+          /* 41 */ 'He tenido muy buenas experiencias siguiendo mi intuición.',
+          /* 42 */ 'Cuando estoy solo me siento desamparado.',
+          /* 43 */ 'Siempre que me miro al espejo, me reconozco inmediatamente.',
+          /* 44 */ 'Tengo miedo de que de pronto deje de caer bien a mis amigos y me excluyan.',
+          /* 45 */ 'A menudo me siento como si fuera "más de una persona" porque tengo muchas opiniones y estados de ánimo diferentes.',
+          /* 46 */ 'Estar solo es difícil para mí.',
+          /* 47 */ 'Tengo muchos aspectos/incompatibles en mí, como por ejemplo: si quisiera ser vegetariano y no pudiera dejar de comer carne.',
+          /* 48 */ 'Cuando alguien aprecia mis logros o piensa que soy exitoso me siento como si "el mundo fuera mío".',
+          /* 49 */ 'Muchas personas que conozco son diferentes de lo que parecen ser.',
+          /* 50 */ 'Cuando mi estado de ánimo cambia de repente, me siento totalmente confundido.',
+          /* 51 */ 'A menudo me bloqueo cuando me pregunto por qué hice las cosas.',
+          /* 52 */ 'A menudo fui engañado por otros, porque pensé que eran muy diferentes de lo que resultaron ser.',
+          /* 53 */ 'Necesito que me reafirmen para no darme por vencido.',
+          /* 54 */ 'Mis amistades suelen durar pocos meses.',
+          /* 55 */ 'No tengo nada en común con la mayoría de las personas de mi edad.',
+          /* 56 */ 'Sé quién soy y eso me hace fuerte por dentro.',
+          /* 57 */ 'A menudo me dicen que me contradigo, pero yo no creo que lo haga.',
+          /* 58 */ 'Puedo imaginar que encontraré mi lugar en el mundo.',
+        ],
+      };
+
+      // Helper: escape HTML para texto dinámico
+      function esc(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+
+      // Textos de consentimiento por informante
+      const CONSENT_TEXTS = {
+        Adolescente: `
+          Tus respuestas son confidenciales y forman parte de tu proceso con el
+          Dr. Nicolás Labbé. Algunos resultados pueden usarse de forma
+          <strong>anónima y agrupada</strong> para evaluar la efectividad del
+          tratamiento (sin que se pueda identificar a nadie en particular).
+          <br/><br/>
+          Si tienes dudas o quieres detenerte, díselo a tu terapeuta.
+        `,
+        Padres: `
+          Sus respuestas son confidenciales y forman parte del proceso terapéutico
+          de su hijo/a con el Dr. Nicolás Labbé. Algunos resultados pueden usarse
+          de forma <strong>anónima y agrupada</strong> para evaluar la efectividad
+          del tratamiento (sin que se pueda identificar a nadie en particular).
+          <br/><br/>
+          Si tiene dudas, puede consultarnos en cualquier momento.
+        `,
+      };
+
+      // ═══════════════════════════════════════════════════════════════
+      // PARSEO DE URL
+      // ═══════════════════════════════════════════════════════════════
+      const params = new URLSearchParams(window.location.search);
+
+      function getParam(name, fallback = '') {
+        const key = Array.from(params.keys()).find(k => k.toLowerCase() === name.toLowerCase());
+        return key ? params.get(key) : fallback;
+      }
+
+      // ── Helpers de normalización (case-insensitive, back-compat) ──
+      function normInf(val) {
+        const v = String(val || '').trim().toLowerCase();
+        // Padres: "pa", "padres", "padre", "p", "madre", "m"
+        if (['pa', 'padres', 'padre', 'p', 'madre', 'm'].includes(v)) return 'Padres';
+        // Default: Adolescente (acepta "ad", "adolescente", "a")
+        return 'Adolescente';
+      }
+      function normModo(val) {
+        const v = String(val || '').trim().toLowerCase();
+        // AIDA-solo: "id" (identidad), "aida" (back-compat), "i"
+        if (['id', 'aida', 'i', 'identidad'].includes(v)) return 'id';
+        return '';
+      }
+
+      const ID_Pac = getParam('ID_Pac', 'SIN_ID');
+      const TP     = parseInt(getParam('TP', '0'));
+      const MES    = getParam('MES', '');
+      // inf= corto, Informante= back-compat
+      const Informante = normInf(getParam('inf', '') || getParam('Informante', ''));
+      const generoURL  = getParam('genero', '');   // pre-fill opcional
+      const edadURL    = getParam('edad', '');
+      const modo       = normModo(getParam('modo', ''));
+      const esAidaSolo = modo === 'id' && Informante === 'Adolescente';
+
+      // Si es link AIDA-solo, override del momento a una vista corta:
+      // solo Consent + Demo + AIDA. El timestamp y datos básicos se
+      // fusionan con la fila de intake existente en el Apps Script (upsert).
+      let momento;
+      if (esAidaSolo) {
+        const tpLabel = TP === 0 ? 'Ingreso' : TP === 99 ? 'Cierre' : 'Seguimiento';
+        momento = {
+          label:     `Evaluación de ${tpLabel} · Parte 2`,
+          badge:     `${tpLabel} · TP-${TP} · Identidad`,
+          secciones: ['sec-consent', 'sec-demo', 'sec-aida'],
+        };
+      } else {
+        momento = MOMENTOS[Informante][TP] || MOMENTOS[Informante][0];
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      // INICIALIZACIÓN DE LA UI
+      // ═══════════════════════════════════════════════════════════════
+      document.getElementById('momentBadge').textContent = momento.badge;
+      document.getElementById('introTitle').textContent = momento.label;
+
+      // Adaptar texto introductorio según informante
+      const isPadres = Informante === 'Padres';
+      document.getElementById('introLead').textContent = isPadres
+        ? 'Antes de empezar, le explicamos brevemente cómo es esto.'
+        : 'Antes de empezar, te explicamos brevemente cómo es esto.';
+
+      // Mensaje de bienvenida: depende de Informante y de la fase del TP
+      const fase = TP === 0 ? 'ingreso'
+                 : TP === 99 ? 'cierre'
+                 : 'seguimiento';
+      let welcomeMsg;
+      if (esAidaSolo) {
+        welcomeMsg = TP === 0
+          ? 'Esta es la segunda parte de tu evaluación de ingreso. Aquí van preguntas sobre cómo te ves a ti mismo/a en general. Es más rápido que la primera parte.'
+          : 'Esta es la segunda parte de tu evaluación de cierre. Aquí van preguntas sobre cómo te ves a ti mismo/a en general. Es más rápido que la primera parte.';
+      } else {
+        welcomeMsg = WELCOME_TEXTS[Informante][fase];
+      }
+      document.getElementById('welcomeText').textContent = welcomeMsg;
+
+      // Consentimiento
+      document.getElementById('consentText').innerHTML = CONSENT_TEXTS[Informante];
+      document.getElementById('consentLabel').textContent = isPadres
+        ? 'Estoy de acuerdo y quiero continuar.'
+        : 'Estoy de acuerdo y quiero continuar.';
+
+      // Demográficos (etiquetas adaptadas a informante)
+      document.getElementById('demoTitle').textContent = isPadres
+        ? 'Algunos datos de su hijo/a'
+        : 'Algunos datos';
+      document.getElementById('demoIntro').textContent = isPadres
+        ? 'Antes de las preguntas, necesitamos dos datos básicos de su hijo/a.'
+        : 'Antes de las preguntas, necesitamos dos datos básicos.';
+      document.getElementById('lblGenero').textContent = isPadres
+        ? '¿Cuál es el género de su hijo/a?'
+        : '¿Cuál es tu género?';
+      document.getElementById('lblEdad').textContent = isPadres
+        ? '¿Qué edad tiene su hijo/a?'
+        : '¿Qué edad tienes?';
+
+      // Pre-llenar demográficos si vienen por URL (el usuario puede cambiarlos)
+      if (generoURL && ['F', 'M', 'Otro'].includes(generoURL)) {
+        const r = document.querySelector(`input[name="genero"][value="${generoURL}"]`);
+        if (r) r.checked = true;
+      }
+      if (edadURL) document.getElementById('inputEdad').value = edadURL;
+
+      // Mostrar pills de instrumentos
+      const pillsWrap = document.getElementById('instrumentsList');
+      momento.secciones.forEach(s => {
+        if (PILL_NAMES[s]) {
+          const p = document.createElement('span');
+          p.className = 'pill';
+          p.textContent = PILL_NAMES[s];
+          pillsWrap.appendChild(p);
+        }
+      });
+
+      // Mostrar solo las secciones de este momento
+      const todasLasSecciones = ['sec-consent', 'sec-demo', 'sec-ypcore', 'sec-sdq', 'sec-aida', 'sec-waip'];
+      todasLasSecciones.forEach(s => {
+        const el = document.getElementById(s);
+        if (el) el.style.display = momento.secciones.includes(s) ? '' : 'none';
+      });
+
+      // ═══════════════════════════════════════════════════════════════
+      // CONSTRUIR SECCIÓN SDQ (si está activa)
+      // ═══════════════════════════════════════════════════════════════
+      if (momento.secciones.includes('sec-sdq')) {
+        const sdq = SDQ_TEXTS[Informante];
+
+        // Título e intro
+        document.getElementById('sdq-title').textContent = sdq.title;
+        document.getElementById('sdq-intro').innerHTML = sdq.intro;
+
+        // 25 ítems principales (escala 0-2)
+        const itemsHTML = sdq.items.map((text, idx) => {
+          const i = idx + 1;
+          const opciones = sdq.scale.map((label, v) => `
+            <label class="radio-pill">
+              <input type="radio" name="sdq_${i}" value="${v}">
+              <span>${esc(label)}</span>
+            </label>`).join('');
+          return `
+            <div class="item-block">
+              <div class="item-text">
+                <span class="item-num">${i}.</span>
+                <span>${esc(text)}</span>
+              </div>
+              <div class="item-options">${opciones}</div>
+            </div>`;
+        }).join('');
+        document.getElementById('sdq-items-wrap').innerHTML = itemsHTML;
+
+        // Suplemento de impacto
+        const filtroOpts = sdq.impact_filtro_opts.map((label, i) => `
+          <label class="radio-pill">
+            <input type="radio" name="sdq_impact_filtro" value="${esc(SDQ_FILTRO_VALUES[i])}">
+            <span>${esc(label)}</span>
+          </label>`).join('');
+
+        const duracionOpts = sdq.impact_duracion_opts.map((label, i) => `
+          <label class="radio-pill">
+            <input type="radio" name="sdq_impact_duracion" value="${esc(SDQ_DURACION_VALUES[i])}">
+            <span>${esc(label)}</span>
+          </label>`).join('');
+
+        const impactItemsHTML = sdq.impact_items.map(it => {
+          const opciones = sdq.impact_scale.map((label, i) => `
+            <label class="radio-pill">
+              <input type="radio" name="sdq_impact_${it.key}" value="${SDQ_IMPACT_VALUES[i]}">
+              <span>${esc(label)}</span>
+            </label>`).join('');
+          return `
+            <div class="item-block">
+              <div class="item-text"><span>${esc(it.text)}</span></div>
+              <div class="item-options">${opciones}</div>
+            </div>`;
+        }).join('');
+
+        document.getElementById('sdq-impact-wrap').innerHTML = `
+          <div class="item-block">
+            <div class="item-text"><span>${esc(sdq.impact_filtro)}</span></div>
+            <div class="item-options" style="flex-direction: column;">${filtroOpts}</div>
+          </div>
+          <div id="sdq-supplement" style="display: none;">
+            <div class="item-block">
+              <div class="item-text"><span>${esc(sdq.impact_duracion)}</span></div>
+              <div class="item-options">${duracionOpts}</div>
+            </div>
+            ${impactItemsHTML}
+          </div>
+        `;
+
+        // Mostrar/ocultar suplemento según valor del filtro
+        document.querySelectorAll('input[name="sdq_impact_filtro"]').forEach(r => {
+          r.addEventListener('change', (e) => {
+            const supp = document.getElementById('sdq-supplement');
+            if (e.target.value === 'No') {
+              supp.style.display = 'none';
+              // Limpiar selecciones del suplemento (para que no queden datos huérfanos)
+              supp.querySelectorAll('input[type="radio"]').forEach(x => {
+                x.checked = false;
+                x.closest('.radio-pill')?.classList.remove('is-checked');
+              });
+              supp.querySelectorAll('.is-incomplete').forEach(el => el.classList.remove('is-incomplete'));
+            } else {
+              supp.style.display = '';
+            }
+            actualizarProgreso();
+          });
+        });
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      // CONSTRUIR SECCIÓN AIDA (si está activa — solo Adol TP=0 o 99)
+      // ═══════════════════════════════════════════════════════════════
+      if (momento.secciones.includes('sec-aida')) {
+        document.getElementById('aida-intro').innerHTML = AIDA.intro;
+
+        const itemsHTML = AIDA.items.map((text, idx) => {
+          const i = idx + 1;
+          const opciones = AIDA.scale.map((label, v) => `
+            <label class="radio-pill">
+              <input type="radio" name="aida_${i}" value="${v}">
+              <span>${esc(label)}</span>
+            </label>`).join('');
+
+          // Inserta mini-aliento después del ítem 29 (justo antes del 30 — mitad)
+          const miniAliento = (i === 30)
+            ? `<div class="mini-encouragement">Vas en la mitad. ¡Sigue!</div>`
+            : '';
+
+          return `${miniAliento}
+            <div class="item-block">
+              <div class="item-text">
+                <span class="item-num">${i}.</span>
+                <span>${esc(text)}</span>
+              </div>
+              <div class="item-options">${opciones}</div>
+            </div>`;
+        }).join('');
+
+        document.getElementById('aida-items-wrap').innerHTML = itemsHTML;
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      // CONSTRUIR SECCIÓN WAI-P (si está activa — solo Adol TP=3/6/9/12)
+      // ═══════════════════════════════════════════════════════════════
+      if (momento.secciones.includes('sec-waip')) {
+        document.getElementById('waip-intro').innerHTML = WAIP.intro;
+
+        const itemsHTML = WAIP.items.map((text, idx) => {
+          const i = idx + 1;
+          // 7 pills numéricas (1-7)
+          const opciones = [1,2,3,4,5,6,7].map(v => `
+            <label class="wai-pill">
+              <input type="radio" name="wai_${i}" value="${v}">
+              <span>${v}</span>
+            </label>`).join('');
+          return `
+            <div class="item-block">
+              <div class="item-text">
+                <span class="item-num">${i}.</span>
+                <span>${esc(text)}</span>
+              </div>
+              <div class="wai-scale">${opciones}</div>
+              <div class="wai-anchors"><span>Nunca</span><span>Siempre</span></div>
+            </div>`;
+        }).join('');
+
+        document.getElementById('waip-items-wrap').innerHTML = itemsHTML;
+      }
+
+      // Mostrar mensaje de aliento (solo si hay 3+ secciones)
+      if (momento.secciones.length >= 3) {
+        document.getElementById('encouragement').style.display = '';
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      // VALIDACIÓN + PROGRESO (extensible por sección)
+      // ═══════════════════════════════════════════════════════════════
+
+      const secActivas = momento.secciones;
+
+      /**
+       * Recorre todos los campos requeridos según las secciones activas.
+       * Devuelve { total, completos, faltantes: [{group, name}, ...] }
+       * donde `group` es el elemento contenedor a marcar visualmente.
+       */
+      function recorrerCampos() {
+        const out = { total: 0, completos: 0, faltantes: [] };
+
+        function chequear(nombre, completoFn, groupFn) {
+          out.total += 1;
+          if (completoFn()) {
+            out.completos += 1;
+          } else {
+            out.faltantes.push({ name: nombre, group: groupFn() });
+          }
+        }
+
+        // Consentimiento
+        chequear(
+          'consent',
+          () => document.getElementById('consentChk').checked,
+          () => document.querySelector('.consent-check')
+        );
+
+        // Género
+        chequear(
+          'genero',
+          () => !!document.querySelector('input[name="genero"]:checked'),
+          () => document.querySelector('input[name="genero"]')?.closest('.field')
+        );
+
+        // Edad
+        chequear(
+          'edad',
+          () => { const e = parseInt(document.getElementById('inputEdad').value); return e >= 11 && e <= 17; },
+          () => document.getElementById('inputEdad')?.closest('.field')
+        );
+
+        // YP-CORE (10 ítems)
+        if (secActivas.includes('sec-ypcore')) {
+          for (let i = 1; i <= 10; i++) {
+            chequear(
+              `ypcore_${i}`,
+              () => !!document.querySelector(`input[name="ypcore_${i}"]:checked`),
+              () => document.querySelector(`input[name="ypcore_${i}"]`)?.closest('.item-block')
+            );
+          }
+        }
+
+        // SDQ (25 ítems + filtro + suplemento condicional)
+        if (secActivas.includes('sec-sdq')) {
+          for (let i = 1; i <= 25; i++) {
+            chequear(
+              `sdq_${i}`,
+              () => !!document.querySelector(`input[name="sdq_${i}"]:checked`),
+              () => document.querySelector(`input[name="sdq_${i}"]`)?.closest('.item-block')
+            );
+          }
+          // Filtro del suplemento (siempre requerido si la sección está activa)
+          chequear(
+            'sdq_impact_filtro',
+            () => !!document.querySelector('input[name="sdq_impact_filtro"]:checked'),
+            () => document.querySelector('input[name="sdq_impact_filtro"]')?.closest('.item-block')
+          );
+          // Suplemento: solo requerido si el filtro no es "No"
+          const filtroSel = document.querySelector('input[name="sdq_impact_filtro"]:checked');
+          if (filtroSel && filtroSel.value !== 'No') {
+            chequear(
+              'sdq_impact_duracion',
+              () => !!document.querySelector('input[name="sdq_impact_duracion"]:checked'),
+              () => document.querySelector('input[name="sdq_impact_duracion"]')?.closest('.item-block')
+            );
+            ['a_distress', 'b_familia', 'c_amigos', 'd_clases', 'e_ocio'].forEach(k => {
+              chequear(
+                `sdq_impact_${k}`,
+                () => !!document.querySelector(`input[name="sdq_impact_${k}"]:checked`),
+                () => document.querySelector(`input[name="sdq_impact_${k}"]`)?.closest('.item-block')
+              );
+            });
+          }
+        }
+
+        // AIDA (58 ítems)
+        if (secActivas.includes('sec-aida')) {
+          for (let i = 1; i <= 58; i++) {
+            chequear(
+              `aida_${i}`,
+              () => !!document.querySelector(`input[name="aida_${i}"]:checked`),
+              () => document.querySelector(`input[name="aida_${i}"]`)?.closest('.item-block')
+            );
+          }
+        }
+
+        // WAI-P (12 ítems, escala 1-7)
+        if (secActivas.includes('sec-waip')) {
+          for (let i = 1; i <= 12; i++) {
+            chequear(
+              `wai_${i}`,
+              () => !!document.querySelector(`input[name="wai_${i}"]:checked`),
+              () => document.querySelector(`input[name="wai_${i}"]`)?.closest('.item-block')
+            );
+          }
+        }
+
+        return out;
+      }
+
+      function actualizarProgreso() {
+        const { total, completos } = recorrerCampos();
+        const pct = Math.round((completos / total) * 100);
+        document.getElementById('progressFill').style.width = pct + '%';
+        document.getElementById('progressLabel').textContent =
+          completos === total ? '¡Listo!' : `${completos} de ${total}`;
+      }
+
+      /** Limpia todas las marcas de incompleto (CSS .is-incomplete). */
+      function limpiarMarcasIncompletos() {
+        document.querySelectorAll('.is-incomplete').forEach(el => {
+          el.classList.remove('is-incomplete');
+        });
+        document.getElementById('validationError').classList.remove('active');
+      }
+
+      /** Marca los grupos faltantes y scrollea al primero. */
+      function marcarFaltantes(faltantes) {
+        const errBox = document.getElementById('validationError');
+        errBox.textContent = faltantes.length === 1
+          ? 'Te falta 1 respuesta. Está marcada en rojo más arriba.'
+          : `Te faltan ${faltantes.length} respuestas. Están marcadas en rojo más arriba.`;
+        errBox.classList.add('active');
+
+        faltantes.forEach(f => f.group?.classList.add('is-incomplete'));
+
+        // Scroll al primer faltante (no al error box)
+        if (faltantes[0]?.group) {
+          faltantes[0].group.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      // ESTILO VISUAL DE RADIO-PILLS (resalta el seleccionado)
+      // ═══════════════════════════════════════════════════════════════
+      document.addEventListener('change', (evt) => {
+        if (evt.target.type === 'radio') {
+          const name = evt.target.name;
+          // Selector unificado: .radio-pill (estándar) y .wai-pill (numérico 1-7)
+          document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+            r.closest('.radio-pill, .wai-pill')?.classList.remove('is-checked');
+          });
+          evt.target.closest('.radio-pill, .wai-pill')?.classList.add('is-checked');
+        }
+      });
+
+      // Cuando el usuario corrige algo, limpia las marcas de incompleto del
+      // grupo correspondiente (feedback inmediato).
+      document.addEventListener('change', (evt) => {
+        const grupo = evt.target.closest('.item-block, .field, .consent-check');
+        if (grupo && grupo.classList.contains('is-incomplete')) {
+          grupo.classList.remove('is-incomplete');
+        }
+      });
+      // Lo mismo en input (cuando edad cambia)
+      document.getElementById('inputEdad').addEventListener('input', (e) => {
+        const grupo = e.target.closest('.field');
+        if (grupo && grupo.classList.contains('is-incomplete')) {
+          grupo.classList.remove('is-incomplete');
+        }
+      });
+
+      // Listeners de progreso (feedback pasivo en la barra)
+      document.addEventListener('input', actualizarProgreso);
+      document.addEventListener('change', actualizarProgreso);
+      actualizarProgreso();
+
+      // ═══════════════════════════════════════════════════════════════
+      // ENVÍO POST
+      // ═══════════════════════════════════════════════════════════════
+
+      document.getElementById('btnSubmit').addEventListener('click', async function () {
+        const btn = this;
+        const errBox = document.getElementById('errorMsg');
+        errBox.style.display = 'none';
+
+        // Limpiar marcas previas y validar
+        limpiarMarcasIncompletos();
+        const { faltantes } = recorrerCampos();
+        if (faltantes.length > 0) {
+          marcarFaltantes(faltantes);
+          return;  // Detener: no enviar
+        }
+
+        // Recolectar datos
+        const data = {
+          ID_Pac: ID_Pac,
+          Informante: Informante,
+          TP: TP,
+          MES: MES,
+          genero: document.querySelector('input[name="genero"]:checked').value,
+          edad: parseInt(document.getElementById('inputEdad').value),
+        };
+
+        // Recolectar ítems de instrumentos (etapas siguientes los llenarán)
+        // YP-CORE
+        for (let i = 1; i <= 10; i++) {
+          const v = document.querySelector(`input[name="ypcore_${i}"]:checked`);
+          if (v) data['ypcore_' + i] = parseInt(v.value);
+        }
+        // SDQ
+        for (let i = 1; i <= 25; i++) {
+          const v = document.querySelector(`input[name="sdq_${i}"]:checked`);
+          if (v) data['sdq_' + i] = parseInt(v.value);
+        }
+        // SDQ impacto
+        const filtro = document.querySelector('input[name="sdq_impact_filtro"]:checked');
+        if (filtro) data['sdq_impact_filtro'] = filtro.value;
+        ['a_distress','b_familia','c_amigos','d_clases','e_ocio'].forEach(k => {
+          const v = document.querySelector(`input[name="sdq_impact_${k}"]:checked`);
+          if (v) data['sdq_impact_' + k] = parseInt(v.value);
+        });
+        const dur = document.querySelector('input[name="sdq_impact_duracion"]:checked');
+        if (dur) data['sdq_impact_duracion'] = dur.value;
+        // AIDA
+        for (let i = 1; i <= 58; i++) {
+          const v = document.querySelector(`input[name="aida_${i}"]:checked`);
+          if (v) data['aida_' + i] = parseInt(v.value);
+        }
+        // WAI-P
+        for (let i = 1; i <= 12; i++) {
+          const v = document.querySelector(`input[name="wai_${i}"]:checked`);
+          if (v) data['wai_' + i] = parseInt(v.value);
+        }
+
+        // UI: ocultar form, mostrar loading
+        btn.disabled = true;
+        document.getElementById('submitArea').style.display = 'none';
+        document.getElementById('loadingArea').style.display = 'block';
+
+        try {
+          // POST a la API. Importante: NO mandar Content-Type 'application/json'
+          // porque dispara CORS preflight que Apps Script no maneja bien.
+          // En su lugar, mandamos text/plain con el JSON en el body —
+          // Apps Script igual recibe el JSON en e.postData.contents.
+          const resp = await fetch(API_URL, {
+            method: 'POST',
+            mode: 'no-cors',  // Apps Script no permite leer la respuesta cross-origin
+            body: JSON.stringify(data),
+          });
+
+          // Con no-cors no podemos leer la respuesta, pero el POST sí se procesa.
+          // Asumimos éxito si no hubo error de red.
+          document.getElementById('loadingArea').style.display = 'none';
+          document.getElementById('closingArea').style.display = 'block';
+          document.getElementById('introBlock').style.display = 'none';
+          document.getElementById('momentBadge').style.display = 'none';
+          // Ocultar todas las secciones del form
+          todasLasSecciones.forEach(s => {
+            const el = document.getElementById(s);
+            if (el) el.style.display = 'none';
+          });
+          document.getElementById('encouragement').style.display = 'none';
+          // Progreso al 100% cierre
+          document.getElementById('progressFill').style.width = '100%';
+          document.getElementById('progressLabel').textContent = '¡Enviado!';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (err) {
+          // Error de red
+          document.getElementById('loadingArea').style.display = 'none';
+          document.getElementById('submitArea').style.display = 'block';
+          btn.disabled = false;
+          errBox.textContent = 'No pudimos enviar tus respuestas. Revisa tu conexión a internet y vuelve a intentar.';
+          errBox.style.display = 'block';
+        }
+      });
+
+    </script>
+  </body>
+</html>
