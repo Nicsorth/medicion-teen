@@ -643,7 +643,17 @@
         <div class="consent-check">
           <input type="checkbox" id="consentChk" />
           <label for="consentChk" id="consentLabel">
-            Estoy de acuerdo y quiero continuar.
+            Entiendo lo anterior y acepto participar. <strong>(obligatorio)</strong>
+          </label>
+        </div>
+        <div class="consent-check" style="margin-top:10px;background:var(--paper-warm);border-color:var(--border);">
+          <input type="checkbox" id="consentInvChk" />
+          <label for="consentInvChk">
+            <em>Opcional:</em> Acepto además que mis respuestas, de forma completamente
+            anónima y agrupada —sin que ningún dato pueda identificarme ni siquiera de
+            manera indirecta—, puedan ser utilizadas para evaluar la efectividad general
+            del tratamiento y difundirse públicamente con fines de transparencia sobre
+            los resultados del trabajo clínico.
           </label>
         </div>
       </div>
@@ -1197,20 +1207,38 @@
       // Textos de consentimiento por informante
       const CONSENT_TEXTS = {
         Adolescente: `
-          Tus respuestas son confidenciales y forman parte de tu proceso con el
-          Dr. Nicolás Labbé. Algunos resultados pueden usarse de forma
-          <strong>anónima y agrupada</strong> para evaluar la efectividad del
-          tratamiento (sin que se pueda identificar a nadie en particular).
-          <br/><br/>
-          Si tienes dudas o quieres detenerte, díselo a tu terapeuta.
+          <strong>¿Qué información entregamos?</strong> Solo tus respuestas a estas preguntas,
+          vinculadas a un código interno, sin tu nombre ni RUT.<br/><br/>
+          <strong>¿Para qué?</strong> El Dr. Nicolás Labbé usará tus respuestas exclusivamente
+          para orientar tu tratamiento y hacer seguimiento de cómo evolucionas.<br/><br/>
+          <strong>¿Cuánto tiempo se guardan?</strong> Mientras dure tu proceso y conforme a los
+          plazos legales de conservación de fichas clínicas.<br/><br/>
+          <strong>¿Dónde se almacenan?</strong> En Google Sheets (Google LLC, EE.UU.), con
+          acceso restringido al Dr. Labbé. Google actúa como proveedor de infraestructura bajo
+          compromisos contractuales de protección de datos (Google Workspace DPA). Tus
+          respuestas no incluyen tu nombre ni RUT — solo un código interno que no permite
+          identificarte directamente.<br/><br/>
+          <strong>¿Tienes derechos sobre tus datos?</strong> Sí. Puedes pedir acceso,
+          corrección o eliminación de tus datos en cualquier momento escribiendo a
+          <strong>consulta.nicolaslabbe@gmail.com</strong>.<br/><br/>
+          Si tienes dudas, consúltalo con el Dr. Labbé antes de continuar.
         `,
         Padres: `
-          Sus respuestas son confidenciales y forman parte del proceso terapéutico
-          de su hijo/a con el Dr. Nicolás Labbé. Algunos resultados pueden usarse
-          de forma <strong>anónima y agrupada</strong> para evaluar la efectividad
-          del tratamiento (sin que se pueda identificar a nadie en particular).
-          <br/><br/>
-          Si tiene dudas, puede consultarnos en cualquier momento.
+          <strong>¿Qué información entregamos?</strong> Solo sus respuestas a estas preguntas,
+          vinculadas a un código interno del proceso de su hijo/a, sin nombre ni RUT.<br/><br/>
+          <strong>¿Para qué?</strong> El Dr. Nicolás Labbé utilizará esta información
+          exclusivamente para el seguimiento del proceso terapéutico.<br/><br/>
+          <strong>¿Cuánto tiempo se guardan?</strong> Mientras dure el proceso y conforme a los
+          plazos legales de conservación de fichas clínicas.<br/><br/>
+          <strong>¿Dónde se almacenan?</strong> En Google Sheets (Google LLC, EE.UU.), con
+          acceso restringido al Dr. Labbé. Google actúa como proveedor de infraestructura bajo
+          compromisos contractuales de protección de datos (Google Workspace DPA). Las
+          respuestas no incluyen nombre ni RUT — solo un código interno que no permite
+          identificar directamente a su hijo/a.<br/><br/>
+          <strong>¿Tiene derechos sobre los datos?</strong> Sí. Como adulto responsable del
+          menor, puede pedir acceso, corrección o eliminación escribiendo a
+          <strong>consulta.nicolaslabbe@gmail.com</strong>.<br/><br/>
+          Si tiene dudas, puede consultarlo con el Dr. Labbé antes de continuar.
         `,
       };
 
@@ -1688,12 +1716,16 @@
 
         // Recolectar datos
         const data = {
+          token: 'ps-2026-medicion',
           ID_Pac: ID_Pac,
           Informante: Informante,
           TP: TP,
           MES: MES,
           genero: document.querySelector('input[name="genero"]:checked').value,
           edad: parseInt(document.getElementById('inputEdad').value),
+          consent_ok: document.getElementById('consentChk').checked,
+          consent_investigacion: document.getElementById('consentInvChk').checked,
+          ts_consent: new Date().toISOString(),
         };
 
         // Recolectar ítems de instrumentos (etapas siguientes los llenarán)
