@@ -946,6 +946,8 @@
         Adolescente: {
           0:  { label: 'Evaluación de Ingreso',         badge: 'Ingreso · TP-0',
                 secciones: ['sec-consent', 'sec-demo', 'sec-ypcore', 'sec-sdq'] },
+          1:  { label: 'Evaluación de Seguimiento',     badge: 'Seguimiento mensual',
+                secciones: ['sec-consent', 'sec-demo', 'sec-ypcore', 'sec-sdq', 'sec-waip'] },
           3:  { label: 'Evaluación de Seguimiento 3m',  badge: 'Seguimiento 3m · TP-3',
                 secciones: ['sec-consent', 'sec-demo', 'sec-ypcore', 'sec-sdq', 'sec-waip'] },
           6:  { label: 'Evaluación de Seguimiento 6m',  badge: 'Seguimiento 6m · TP-6',
@@ -960,6 +962,8 @@
         Padres: {
           // Padres solo responden SDQ en todos los momentos
           0:  { label: 'Evaluación de Ingreso (Padres)',         badge: 'Ingreso · TP-0',
+                secciones: ['sec-consent', 'sec-demo', 'sec-sdq'] },
+          1:  { label: 'Evaluación de Seguimiento (Padres)',     badge: 'Seguimiento mensual',
                 secciones: ['sec-consent', 'sec-demo', 'sec-sdq'] },
           3:  { label: 'Evaluación de Seguimiento 3m (Padres)',  badge: 'Seguimiento 3m · TP-3',
                 secciones: ['sec-consent', 'sec-demo', 'sec-sdq'] },
@@ -1297,6 +1301,13 @@
       // ═══════════════════════════════════════════════════════════════
       document.getElementById('momentBadge').textContent = momento.badge;
       document.getElementById('introTitle').textContent = momento.label;
+
+      // Para seguimientos mensuales (TP=1), mostrar el número de mes en el badge
+      if (TP === 1 && MES) {
+        const sufijo = Informante === 'Padres' ? ' (Padres)' : '';
+        document.getElementById('momentBadge').textContent = `Seguimiento · Mes ${MES}`;
+        document.getElementById('introTitle').textContent = `Evaluación de Seguimiento — Mes ${MES}${sufijo}`;
+      }
 
       // Adaptar texto introductorio según informante
       const isPadres = Informante === 'Padres';
