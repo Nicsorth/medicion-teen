@@ -946,8 +946,6 @@
         Adolescente: {
           0:  { label: 'Evaluación de Ingreso',         badge: 'Ingreso · TP-0',
                 secciones: ['sec-consent', 'sec-demo', 'sec-ypcore', 'sec-sdq'] },
-          1:  { label: 'Evaluación de Seguimiento',     badge: 'Seguimiento mensual',
-                secciones: ['sec-consent', 'sec-demo', 'sec-ypcore', 'sec-sdq', 'sec-waip'] },
           3:  { label: 'Evaluación de Seguimiento 3m',  badge: 'Seguimiento 3m · TP-3',
                 secciones: ['sec-consent', 'sec-demo', 'sec-ypcore', 'sec-sdq', 'sec-waip'] },
           6:  { label: 'Evaluación de Seguimiento 6m',  badge: 'Seguimiento 6m · TP-6',
@@ -962,8 +960,6 @@
         Padres: {
           // Padres solo responden SDQ en todos los momentos
           0:  { label: 'Evaluación de Ingreso (Padres)',         badge: 'Ingreso · TP-0',
-                secciones: ['sec-consent', 'sec-demo', 'sec-sdq'] },
-          1:  { label: 'Evaluación de Seguimiento (Padres)',     badge: 'Seguimiento mensual',
                 secciones: ['sec-consent', 'sec-demo', 'sec-sdq'] },
           3:  { label: 'Evaluación de Seguimiento 3m (Padres)',  badge: 'Seguimiento 3m · TP-3',
                 secciones: ['sec-consent', 'sec-demo', 'sec-sdq'] },
@@ -1292,8 +1288,22 @@
           badge:     `${tpLabel} · TP-${TP} · Identidad`,
           secciones: ['sec-consent', 'sec-demo', 'sec-aida'],
         };
+      } else if (MOMENTOS[Informante][TP]) {
+        momento = MOMENTOS[Informante][TP];
+      } else if (TP >= 1 && TP <= 98) {
+        // Seguimiento mensual libre: TP = mes real (TP=2 → mes 2, TP=7 → mes 7).
+        // MES queda solo como compatibilidad para links antiguos TP=1&MES=N.
+        const mesReal = (TP === 1 && MES) ? MES : TP;
+        const sufijo  = Informante === 'Padres' ? ' (Padres)' : '';
+        momento = {
+          label:     `Evaluación de Seguimiento — Mes ${mesReal}${sufijo}`,
+          badge:     `Seguimiento · Mes ${mesReal}`,
+          secciones: Informante === 'Padres'
+            ? ['sec-consent', 'sec-demo', 'sec-sdq']
+            : ['sec-consent', 'sec-demo', 'sec-ypcore', 'sec-sdq', 'sec-waip'],
+        };
       } else {
-        momento = MOMENTOS[Informante][TP] || MOMENTOS[Informante][0];
+        momento = MOMENTOS[Informante][0];
       }
 
       // ═══════════════════════════════════════════════════════════════
@@ -1301,13 +1311,6 @@
       // ═══════════════════════════════════════════════════════════════
       document.getElementById('momentBadge').textContent = momento.badge;
       document.getElementById('introTitle').textContent = momento.label;
-
-      // Para seguimientos mensuales (TP=1), mostrar el número de mes en el badge
-      if (TP === 1 && MES) {
-        const sufijo = Informante === 'Padres' ? ' (Padres)' : '';
-        document.getElementById('momentBadge').textContent = `Seguimiento · Mes ${MES}`;
-        document.getElementById('introTitle').textContent = `Evaluación de Seguimiento — Mes ${MES}${sufijo}`;
-      }
 
       // Adaptar texto introductorio según informante
       const isPadres = Informante === 'Padres';
